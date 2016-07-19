@@ -1,0 +1,18 @@
+{
+    "name": "VampiRUS/phpsmstools",
+    "description": "Help to read sms from usb modem",
+    "keywords": ["sms", "modem"],
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+        "name": "Nikolay Kravtsov",
+        "email": "vamp1rus@yandex.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Phpsmstools\\": "src/"
+        }
+    }
+}
