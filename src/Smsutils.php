@@ -18,7 +18,9 @@ class Smsutils {
 
 		$result['sender'] = substr($str, 22, $sender_length);
 		if ($result['sender_type'] != '91') {
-			$result['sender'] = decode7Bit($result['sender']);
+			$result['sender'] = self::decode7Bit($result['sender']);
+		} else {
+			$result['sender'] = trim(self::changeOrder($result['sender']),'F');
 		}
 		$offset = 22+$sender_length;
 		$result['time'] = substr($str, $offset+4, 14);
@@ -41,6 +43,16 @@ class Smsutils {
 
 		}
 		$result['sms_text'] = self::usc2Decode(substr($str, $text_offset ));
+		return $result;
+	}
+
+	static public function changeOrder($str){
+		$count = strlen($str);
+		$result = '';
+		for($i = 0; $i < $count; $i+=2) {
+			$result .= substr($str, $i+1, 1);
+			$result .= substr($str, $i, 1);
+		}
 		return $result;
 	}
 
