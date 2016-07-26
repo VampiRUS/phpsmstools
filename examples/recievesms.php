@@ -17,7 +17,7 @@ $out = $telnet2->readOutput();
 preg_match_all('#\+CMGL: (\d+),(\d+),,(\d+)\s+([^\s]*)\s*#', $out, $matches, PREG_SET_ORDER);
 $messages = array();
 foreach($matches as $sms) {
-	$message = SMS::parseRawSms($sms[4]);
+	$message = SMS::parsePdu($sms[4]);
 	$messages[$message['sms_id']][$message['sms_part']] = $message['sms_text'];
 }
 
