@@ -24,7 +24,7 @@ class Smsutils {
 		}
 		$offset = 22+$sender_length;
 		$result['tpdsc'] = substr($str,$offset+2,2);
-		$format = (ord(hex2bin($result['dsc'])) & 0x0C);
+		$format = (ord(hex2bin($result['tpdsc'])) & 0x0C);
 		$result['time'] = substr($str, $offset+4, 14);
 		$offset += 4+14;
 
