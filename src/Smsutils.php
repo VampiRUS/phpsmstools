@@ -23,8 +23,13 @@ class Smsutils {
 			$result['sender'] = trim(self::changeOrder($result['sender']),'F');
 		}
 		$offset = 22+$sender_length;
+		$result['tpdsc'] = substr($str,$offset+2,2);
+		$format = (ord(hex2bin($result['dsc'])) & 0x0C);
 		$result['time'] = substr($str, $offset+4, 14);
 		$offset += 4+14;
+
+
+
 		$content_len = hexdec(substr($str, $offset ,2));
 		$pdu_len = hexdec(substr($str, $offset + 2 ,2));
 
@@ -42,7 +47,11 @@ class Smsutils {
 			$result['sms_part'] = 0;
 
 		}
-		$result['sms_text'] = self::usc2Decode(substr($str, $text_offset ));
+		if($format == 8) {
+			$result['sms_text'] = self::usc2Decode(substr($str, $text_offset ));
+		} else {
+			$result['sms_text'] = self::decode7Bit(substr($str, $text_offset ));
+		}
 		return $result;
 	}
 
